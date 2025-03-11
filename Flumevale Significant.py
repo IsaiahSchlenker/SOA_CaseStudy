@@ -19,7 +19,7 @@ plt.hist(data, bins=30, density=True, alpha=0.6, color='g', label='Data Histogra
 plt.plot(x, pdf_fitted, 'r-', label=f'Fitted Lognormal\nShape: {shape:.2f}, Scale: {scale:.2f}')
 plt.xlabel('Value')
 plt.ylabel('Density')
-plt.title('Lognormal Fit to Data')
+plt.title('Flumevale Significant')
 plt.legend()
 plt.show()
 

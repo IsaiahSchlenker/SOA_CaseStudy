@@ -22,7 +22,7 @@ plt.hist(data, bins=30, density=True, alpha=0.6, color='g', label='Original Data
 plt.plot(x_values, pdf_values, 'r-', label='Fitted Exponential Distribution')
 
 # Step 6: Display the plot
-plt.title("Exponential Distribution Fit")
+plt.title("Flumevale High")
 plt.xlabel("Value")
 plt.ylabel("Density")
 plt.legend()

@@ -27,7 +27,7 @@ plt.hist(data, bins=30, density=True, alpha=0.6, color='g', label='Data Histogra
 plt.plot(x, pdf_fitted, 'r-', label=f'Fitted Gamma\nshape: {shape:.2f}, scale: {scale:.2f}')
 plt.xlabel('Value')
 plt.ylabel('Density')
-plt.title('Gamma Fit to Data')
+plt.title('Navaldia Low')
 plt.legend()
 plt.show()
 
