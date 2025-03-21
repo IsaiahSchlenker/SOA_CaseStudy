@@ -33,7 +33,7 @@ for i, (loc, hazard) in enumerate(unique_combinations):
     aggregated_poisson_rates[i] = np.sum(poisson_rates[mask])
     aggregated_expected_losses[i] = np.sum(expected_losses[mask])
 
-num_simulations = 1000
+num_simulations = 10000
 np.random.seed(42)
 simulated_losses = np.zeros((num_simulations, num_combinations))
 
@@ -42,19 +42,26 @@ for i in range(num_combinations):
     simulated_losses[:, i] = num_failures * aggregated_expected_losses[i]
 
 VaR_95 = np.percentile(simulated_losses, 95, axis=0)
+median = np.percentile(simulated_losses, 50, axis=0)
 loading_factor = 0.1
 premiums = VaR_95 * (1 + loading_factor)
 
 for i in range(num_combinations):
     print(f"Location: {unique_combinations[i, 0]}, Hazard Level: {unique_combinations[i, 1]}")
+    print(f"  - Median (annual): ${median[i]:,.2f}")
     print(f"  - VaR 95% (annual): ${VaR_95[i]:,.2f}")
     print(f"  - Premium (annual): ${premiums[i]:,.2f}\n")
-
-plt.figure(figsize=(10, 5))
-plt.hist(simulated_losses[:, 0], bins=50, density=True, alpha=0.6, color='b')
-plt.axvline(VaR_95[0], color='r', linestyle='dashed', linewidth=2, label='VaR 95%')
-plt.xlabel('Total Loss')
-plt.ylabel('Probability Density')
-plt.title(f"Loss Distribution for {unique_combinations[0, 0]} - {unique_combinations[0, 1]}")
-plt.legend()
-plt.show()
+    
+    plt.figure(figsize=(10, 5))
+    plt.hist(simulated_losses[:, i], bins=50, density=True, alpha=0.6, color='b', label="Simulated Losses")
+    plt.axvline(VaR_95[i], color='r', linestyle='dashed', linewidth=2, label='VaR 95%')
+    
+    plt.xlabel('Total Loss')
+    plt.ylabel('Probability Density')
+    plt.title(f"Loss Distribution for {unique_combinations[i, 0]} - {unique_combinations[i, 1]}")
+    plt.legend()
+    plt.show()
+medianSum = 0
+for i in range(3):
+    medianSum += median[i]
+print(medianSum)
